@@ -11,9 +11,12 @@
   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
   crossorigin="anonymous"></script>
 <script
-  src="https://code.jquery.com/jquery-2.2.4.min.js"
-  integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+  src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+  integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
   crossorigin="anonymous"></script>
+  
+  
+  
 <script src="jquery.ui.touch-punch.min.js"></script>
 <body>
 <style> 
@@ -22,13 +25,20 @@
         height: 100%;
     }
     #wrap{
+        position:relative;
         width:100%;
         height: 100%;
     }
-    .slide-cover{
-        width:500%;
+    .box{
+        width: 100%;
         height: 100%;
         overflow:hidden;
+    }
+    .slide-cover{
+        position: relative;
+        width:500%;
+        height: 100%;
+        transition:all .3s;
     }
     .slide-cover div.slide{
         position:relative;
@@ -46,7 +56,16 @@
         color:#fff;
         font-weight: 600;
     }
-    .slide-cover p{
+    .pos-info{
+        position:fixed;
+        bottom:0;
+        height: 20%;
+        width:100%;
+        background-color:#fff;
+        opacity:.5;
+        text-align: center;
+    }
+    .pos-info p{
         font-size:16px;
         font-weight: 600;
         padding:10px 0;
@@ -55,31 +74,36 @@
     
     </style>
 <section id="wrap">
+   <div class="box">
     <div class="slide-cover">
-        <div class="slide" style="
+        <div class="slide s1" style="
         background-color:#e3a4a4;">
             <span>슬라이드1</span>
-            <p class="pos1">시작</p>
-            <p class="pos2">중간</p> 
-            <p class="pos3">끝</p>
+          
         </div>
-        <div class="slide" style="
+        <div class="slide s2" style="
         background-color:#a4a4e3;">
             <span>슬라이드2</span>
         </div>
-        <div class="slide" style="
+        <div class="slide s3" style="
         background-color:#d4e3a4;">
             <span>슬라이드3</span>
         </div>
-        <div class="slide" style="
+        <div class="slide s4" style="
         background-color:#a4e3b0;">
             <span>슬라이드4</span>
         </div>
-        <div class="slide" style="
+        <div class="slide s5" style="
         background-color:#a4e3de;">
             <span>슬라이드5</span>
         </div>
     </div>
+    <div class="pos-info">
+      <p class="pos1">시작</p>
+            <p class="pos2">중간</p> 
+            <p class="pos3">끝</p>
+            </div>
+            </div>
 </section>
 
 
@@ -87,6 +111,7 @@
 
 <script>
     $(document).ready(function(){
+      
         //1.start
         $(document).bind('touchstart',function(event){
         var x = event.pageX || event.originalEvent.touches[0].pageX;
@@ -106,6 +131,45 @@
             $(".pos3").text('끝 x = '+ x.toFixed(0) +' 끝 y = '+ y.toFixed(0));
         })
         
+        var point = $(window).width()/3
+        $('#wrap').append("<span class='line'></span>");
+        $('.line').css({
+            display:'inline-block',
+            backgroundColor:'red',
+            width:'1px',
+            height:'100%',
+            position:'absolute',
+            left:point*2 + 'px',
+            top:0
+        })
+        
+         $(".slide-cover").draggable({
+                axis: "x"
+            });
+        
+        var slide = $('.slide-cover');
+        
+        
+        $("#wrap").bind("touchmove",function(){
+            var sOffset = slide.find('.slide').offset().left;
+            var $this = slide.find('.slide').click().index();
+            console.log(-point);
+            console.log(sOffset);
+            console.log($this);
+           
+        }) 
+        $("#wrap").bind("touchend",function(){
+            var sOffset = slide.find('.slide').offset().left;
+            //인덱스.
+            var index = 1;
+            if(sOffset < -point){
+                slide.css('left',-(100*index)+'%');
+                index++;
+            } else{
+                slide.css('left',0)
+            }
+        })
+      
         
     });//jqb
     

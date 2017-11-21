@@ -110,9 +110,10 @@
 </body>
 
 <script>
-    $(document).ready(function(){
+ $(document).ready(function(){
             
         var point = $(window).width()/3
+		
         $('#wrap').append("<span class='line'></span>");
         $('.line').css({
             display:'inline-block',
@@ -127,43 +128,56 @@
         
        
         var slide = $('.slide-cover');
-     
+     	var sOffset;
+		
+		var startX;
+		var startY;
+		var moveX;
+		var moveY;
+		var endX;
+		var endY;
         //1.start
         $(document).bind('touchstart',function(event){
-        var x = event.pageX || event.originalEvent.touches[0].pageX;
-        var y = event.pageY || event.originalEvent.touches[0].pageY;
-            $(".pos1").text('시작 x = '+ x.toFixed(0) + ' 시작 y = '+ y.toFixed(0));
-            slide.css('left', 0);
+        startX = event.pageX || event.originalEvent.touches[0].pageX;
+        startY = event.pageY || event.originalEvent.touches[0].pageY;
+			
+            $(".pos1").text('시작 x = '+ startX.toFixed(0) + ' 시작 y = '+ startY.toFixed(0));
+		
+			
         })
         //2.move
         $(document).bind('touchmove',function(event){
-        var x = event.pageX || event.originalEvent.touches[0].pageX;
-        var y = event.pageY || event.originalEvent.touches[0].pageY;
-           $(".pos2").text('이동 x = '+ x.toFixed(0) +' 이동y = '+ y.toFixed(0));
-              slide.css('left', -x)
+        moveX = event.pageX || event.originalEvent.touches[0].pageX;
+        moveY = event.pageY || event.originalEvent.touches[0].pageY;
+           $(".pos2").text('이동 x = '+ moveX.toFixed(0) +' 이동y = '+ moveY.toFixed(0));
+			
         })
         //3.end
         $(document).bind('touchend',function(event){
-        var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
-        var y = event.pageY || event.originalEvent.changedTouches[0].pageY;
-            $(".pos3").text('끝 x = '+ x.toFixed(0) +' 끝 y = '+ y.toFixed(0));
-             
-             var sOffset = slide.find('.slide').offset().left;
-            if(sOffset < -point){
-                slide.css('left',-100+'%');
-                index++;
-            } else{
-                slide.css('left',0)
-            }
+        endX = event.pageX || event.originalEvent.changedTouches[0].pageX;
+        endY = event.pageY || event.originalEvent.changedTouches[0].pageY;
+            $(".pos3").text('끝 x = '+ endX.toFixed(0) +' 끝 y = '+ endY.toFixed(0));
+          
         })
   
-        
+        $("#wrap").bind('touchmove',function(){
+			 sOffset= slide.find('.slide').offset().left;
+			slide.css('left',-(startX-moveX));
+			
+		}) 
+				
+		$("#wrap").bind('touchend',function(){
+			 sOffset= slide.find('.slide').offset().left;
+			if(sOffset > -point){
+				slide.css('left',0);
+			} else{ slide.css('left',-100+"%")}
+		})
+       
+			
+       
       
         
     });//jqb
-    
-    
-    
     
     </script>
 </html>

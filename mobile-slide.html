@@ -111,26 +111,7 @@
 
 <script>
     $(document).ready(function(){
-      
-        //1.start
-        $(document).bind('touchstart',function(event){
-        var x = event.pageX || event.originalEvent.touches[0].pageX;
-        var y = event.pageY || event.originalEvent.touches[0].pageY;
-            $(".pos1").text('시작 x = '+ x.toFixed(0) + ' 시작 y = '+ y.toFixed(0));
-        })
-        //2.move
-        $(document).bind('touchmove',function(event){
-        var x = event.pageX || event.originalEvent.touches[0].pageX;
-        var y = event.pageY || event.originalEvent.touches[0].pageY;
-           $(".pos2").text('이동 x = '+ x.toFixed(0) +' 이동y = '+ y.toFixed(0));
-        })
-        //3.end
-        $(document).bind('touchend',function(event){
-        var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
-        var y = event.pageY || event.originalEvent.changedTouches[0].pageY;
-            $(".pos3").text('끝 x = '+ x.toFixed(0) +' 끝 y = '+ y.toFixed(0));
-        })
-        
+            
         var point = $(window).width()/3
         $('#wrap').append("<span class='line'></span>");
         $('.line').css({
@@ -146,22 +127,27 @@
         
        
         var slide = $('.slide-cover');
-        
-         $("#wrap").bind("touchstart",function(){
+     
+        //1.start
+        $(document).bind('touchstart',function(event){
         var x = event.pageX || event.originalEvent.touches[0].pageX;
         var y = event.pageY || event.originalEvent.touches[0].pageY;
-           slide.css('left', 0);
-        }) 
-        
-        $("#wrap").bind("touchmove",function(){
-          var x = event.pageX || event.originalEvent.touches[0].pageX;
+            $(".pos1").text('시작 x = '+ x.toFixed(0) + ' 시작 y = '+ y.toFixed(0));
+            slide.css('left', 0);
+        })
+        //2.move
+        $(document).bind('touchmove',function(event){
+        var x = event.pageX || event.originalEvent.touches[0].pageX;
         var y = event.pageY || event.originalEvent.touches[0].pageY;
-            slide.css('left', -x)
-        }) 
-        $("#wrap").bind("touchend",function(){
-           var x = event.pageX || event.originalEvent.touches[0].pageX;
-        var y = event.pageY || event.originalEvent.touches[0].pageY;
-            
+           $(".pos2").text('이동 x = '+ x.toFixed(0) +' 이동y = '+ y.toFixed(0));
+              slide.css('left', -x)
+        })
+        //3.end
+        $(document).bind('touchend',function(event){
+        var x = event.pageX || event.originalEvent.changedTouches[0].pageX;
+        var y = event.pageY || event.originalEvent.changedTouches[0].pageY;
+            $(".pos3").text('끝 x = '+ x.toFixed(0) +' 끝 y = '+ y.toFixed(0));
+             
              var sOffset = slide.find('.slide').offset().left;
             if(sOffset < -point){
                 slide.css('left',-100+'%');
@@ -170,6 +156,8 @@
                 slide.css('left',0)
             }
         })
+  
+        
       
         
     });//jqb

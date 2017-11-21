@@ -142,28 +142,29 @@
             left:point*2 + 'px',
             top:0
         })
+       
         
-         $(".slide-cover").draggable({
-                axis: "x"
-            });
-        
+       
         var slide = $('.slide-cover');
         
+         $("#wrap").bind("touchstart",function(){
+        var x = event.pageX || event.originalEvent.touches[0].pageX;
+        var y = event.pageY || event.originalEvent.touches[0].pageY;
+           slide.css('left', 0);
+        }) 
         
         $("#wrap").bind("touchmove",function(){
-            var sOffset = slide.find('.slide').offset().left;
-            var $this = slide.find('.slide').click().index();
-            console.log(-point);
-            console.log(sOffset);
-            console.log($this);
-           
+          var x = event.pageX || event.originalEvent.touches[0].pageX;
+        var y = event.pageY || event.originalEvent.touches[0].pageY;
+            slide.css('left', -x)
         }) 
         $("#wrap").bind("touchend",function(){
-            var sOffset = slide.find('.slide').offset().left;
-            //인덱스.
-            var index = 1;
+           var x = event.pageX || event.originalEvent.touches[0].pageX;
+        var y = event.pageY || event.originalEvent.touches[0].pageY;
+            
+             var sOffset = slide.find('.slide').offset().left;
             if(sOffset < -point){
-                slide.css('left',-(100*index)+'%');
+                slide.css('left',-100+'%');
                 index++;
             } else{
                 slide.css('left',0)

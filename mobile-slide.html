@@ -160,6 +160,11 @@
           
         })
   
+	 
+	 $("#wrap").bind('touchstart',function(){
+			slide.css('left',0);
+		})
+	 
         $("#wrap").bind('touchmove',function(){
 			 sOffset= slide.find('.slide').offset().left;
 			slide.css('left',-(startX-moveX));

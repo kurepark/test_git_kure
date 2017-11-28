@@ -111,7 +111,7 @@
 </body>
 
 <script>
-$(document).ready(function () {
+	$(document).ready(function () {
 		var point = $(window).width() / 5
 		$('#wrap').append("<span class='line'></span>");
 		$('.line').css({
@@ -162,7 +162,13 @@ $(document).ready(function () {
 		})
 		$("#wrap").bind('touchmove', function () {
 			prevPos = -(startX - moveX);
-			slide.css('left',prevPos + slideLeft);
+			if(index === 0){
+				slide.css('left', prevPos);
+			} else {
+				slide.css('left',prevPos + slideLeft);
+			}
+			
+			console.log(index);
 		})
 		$("#wrap").bind('touchend', function () {
 			prevPos = -(startX - moveX);
@@ -173,13 +179,17 @@ $(document).ready(function () {
 				slide.css('left',slideLeft);
 			}
 			else {
-				slide.css('left', slideLeft *index);
+				if(index === 0){
+					slide.css('left', 0);
+				}else{
+					slide.css('left', -(slideWid * index));
+					console.log(slideWid * index);
+				}
+				
 			}
 			index = index;
-			slideLeft =+slideLeft;
 		})
 		
 	}); //jqb
-    
     </script>
 </html>

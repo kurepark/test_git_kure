@@ -173,15 +173,20 @@
 		$("#wrap").bind('touchend', function () {
 			prevPos = -(startX - moveX);
 			if (prevPos < -point) {
+				if(index > 3){
+					slide.css('left', -(slideWid * index));
+				} else{
 				console.log('넘었다')
 				index++;
 				slideLeft = -(slideWid * index);
 				slide.css('left',slideLeft);
+					}
 			}
 			else {
 				if(index === 0){
 					slide.css('left', 0);
-				}else{
+				}
+				else{
 					slide.css('left', -(slideWid * index));
 					console.log(slideWid * index);
 				}

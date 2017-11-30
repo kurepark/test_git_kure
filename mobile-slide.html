@@ -165,22 +165,22 @@
 			$(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
 			
 			prevPos = -(startX - moveX);
-			if (prevPos < -point) {
-				if(index > 3){
-					slide.css('left', -(slideWid * index));
+			if (prevPos < -point) {//기준선 넘을시.
+				if(index > 3){//마지막페이지 기준선 넘을때 페이지 안넘기도록
+					slide.animate({left:-(slideWid * index)},300,'easeOutCubic');
 				} else{
 				console.log('넘었다')
 				index++;
 				slideLeft = -(slideWid * index);
-				slide.css('left',slideLeft);
+				slide.animate({left:slideLeft},500,'easeOutCubic');
 					}
 			}
-			else {
+			else {//기준선 안넘었을때
 				if(index === 0){
-					slide.css('left', 0);
+					slide.animate({left:0},300,'easeOutCubic');
 				}
 				else{
-					slide.css('left', -(slideWid * index));
+					slide.animate({left:-(slideWid * index)},300,'easeOutCubic');
 					console.log(slideWid * index);
 				}
 				

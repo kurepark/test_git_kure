@@ -138,29 +138,18 @@
 		,divIndex = slideDiv.eq(index)
 		
 		console.log(slideLeft);
-
-			//1.start
-		$(document).bind('touchstart', function (event) {
-				startX = event.pageX || event.originalEvent.touches[0].pageX;
+		
+		$("#wrap").bind('touchstart', function (event) {
+			startX = event.pageX || event.originalEvent.touches[0].pageX;
 				startY = event.pageY || event.originalEvent.touches[0].pageY;
 				$(".pos1").text('시작 x = ' + startX.toFixed(0) + ' 시작 y = ' + startY.toFixed(0));
-			})
-			//2.move
-		$(document).bind('touchmove', function (event) {
-				moveX = event.pageX || event.originalEvent.touches[0].pageX;
-				moveY = event.pageY || event.originalEvent.touches[0].pageY;
-				$(".pos2").text('이동 x = ' + moveX.toFixed(0) + ' 이동y = ' + moveY.toFixed(0));
-			})
-			//3.end
-		$(document).bind('touchend', function (event) {
-			endX = event.pageX || event.originalEvent.changedTouches[0].pageX;
-			endY = event.pageY || event.originalEvent.changedTouches[0].pageY;
-			$(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
-		})
-		$("#wrap").bind('touchstart', function () {
 			//slide.css('left', 0);
 		})
-		$("#wrap").bind('touchmove', function () {
+		$("#wrap").bind('touchmove', function (event) {
+			moveX = event.pageX || event.originalEvent.touches[0].pageX;
+				moveY = event.pageY || event.originalEvent.touches[0].pageY;
+				$(".pos2").text('이동 x = ' + moveX.toFixed(0) + ' 이동y = ' + moveY.toFixed(0));
+			
 			prevPos = -(startX - moveX);
 			if(index === 0){
 				slide.css('left', prevPos);
@@ -170,7 +159,11 @@
 			
 			console.log(index);
 		})
-		$("#wrap").bind('touchend', function () {
+		$("#wrap").bind('touchend', function (event) {
+			endX = event.pageX || event.originalEvent.changedTouches[0].pageX;
+			endY = event.pageY || event.originalEvent.changedTouches[0].pageY;
+			$(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
+			
 			prevPos = -(startX - moveX);
 			if (prevPos < -point) {
 				if(index > 3){

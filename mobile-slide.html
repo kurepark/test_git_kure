@@ -182,9 +182,9 @@
 			console.log(startY - endY)
 			if(startY  - endY < -passPoint){
 				dir = 'down'
-			}else if(startY- endY > passPoint){
+			}else if(startY- endY > passPoint-20){
 				dir = 'up'
-			}else if(-passPoint < startY-endY < passPoint){
+			}else if(-passPoint < startY-endY < passPoint-20){
 				dir = 'mid'
 			}	
 			

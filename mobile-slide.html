@@ -105,13 +105,18 @@
             <p class="pos3">끝</p>
             </div>
             </div>
+	<div class="box box2">
+		<div class="inbox">
+			<p>아래가 보이면 성공!</p>
+		</div>
+		</div>
 </section>
 
 
 </body>
 
 <script>
-		$(document).ready(function () {
+	$(document).ready(function () {
 		var point = $(window).width() / 5;
 		console.log(point);
 		$('#wrap').append("<span class='line'></span>");
@@ -149,6 +154,7 @@
 		,prevPos
 		,divIndex = slideDiv.eq(index)
 		,dir
+		,passPoint = 20
 
 		$("#wrap").bind('touchstart', function (event) {
 			startX = event.pageX || event.originalEvent.touches[0].pageX;
@@ -174,23 +180,23 @@
 			endY = event.pageY || event.originalEvent.changedTouches[0].pageY;
 			$(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
 			console.log(startY - endY)
-			if(-30 < startY-endY < 30){
-				dir = 'mid'
-			}
-			else if(startY  - endY < -30){
+			if(startY  - endY < -passPoint){
 				dir = 'down'
-			}else if(startY- endY > 30){
+			}else if(startY- endY > passPoint){
 				dir = 'up'
+			}else if(-passPoint < startY-endY < passPoint){
+				dir = 'mid'
 			}	
 			
 			
 			console.log(dir);
-//			if(dir === 'up' || dir === 'down'){
-//				slide.css('left',0);
-//			} else{
-//		slideFunc();
-//			}
-			function slideFunc(){
+			if(dir === 'up' || dir === 'down'){
+				event.preventDefault;
+				slide.css('left',-(slideWid * index));
+			} else{
+		slideFunc();
+			}
+			function slideFunc(event){
 					nextPos = (startX - moveX);
 			if (-nextPos < -point) {//기준선 넘을시.
 				if(index > 3){//마지막페이지 기준선 넘을때 페이지 안넘기도록

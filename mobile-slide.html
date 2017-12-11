@@ -118,7 +118,6 @@
 <script>
 	$(document).ready(function () {
 		var point = $(window).width() / 5;
-		console.log(point);
 		$('#wrap').append("<span class='line'></span>");
 		$('#wrap').append("<span class='line2'></span>");
 		$('.line').css({
@@ -140,107 +139,133 @@
 			, top: 0
 		})
 		var slide = $('.slide-cover')
-		,slideDiv = $('.slide-cover div')
-		,slideWid = slideDiv.width()
-		,slideLeft = slide.css('left')
-		,startX
-		,startY
-		,moveX
-		,moveY
-		,endX
-		,endY
-		,index = 0
-		,nextPos
-		,prevPos
-		,divIndex = slideDiv.eq(index)
-		,dir
-		,passPoint = 50
-
+			, slideDiv = $('.slide-cover div')
+			, slideWid = slideDiv.width()
+			, slideLeft = slide.css('left')
+			, startX, startY, moveX, moveY, endX, endY, index = 0
+			, nextPos, prevPos, divIndex = slideDiv.eq(index)
+			, dir, passPoint = 20
+			, movePos = 0;
+		
+		
 		$("#wrap").bind('touchstart', function (event) {
-			startX = event.pageX || event.originalEvent.touches[0].pageX;
-				startY = event.pageY || event.originalEvent.touches[0].pageY;
-				$(".pos1").text('시작 x = ' + startX.toFixed(0) + ' 시작 y = ' + startY.toFixed(0));
+			startX = event.clientX || event.originalEvent.touches[0].clientX;
+			startY = event.clientY || event.originalEvent.touches[0].clientY;
+			$(".pos1").text('시작 x = ' + startX.toFixed(0) + ' 시작 y = ' + startY.toFixed(0));
 			//slide.css('left', 0);
+			
 		})
 		$("#wrap").bind('touchmove', function (event) {
-			moveX = event.pageX || event.originalEvent.touches[0].pageX;
-				moveY = event.pageY || event.originalEvent.touches[0].pageY;
-				$(".pos2").text('이동 x = ' + moveX.toFixed(0) + ' 이동y = ' + moveY.toFixed(0));
-			
-			nextPos = (startX - moveX);
-			if(index === 0){
-				slide.css('left', -nextPos);
-			} else {
-				slide.css('left',-nextPos + slideLeft);
+			moveX = event.clientX || event.originalEvent.touches[0].clientX;
+			moveY = event.clientY || event.originalEvent.touches[0].clientY;
+			$(".pos2").text('이동 x = ' + moveX.toFixed(0) + ' 이동y = ' + moveY.toFixed(0));
+					
+					if (startY - moveY < -passPoint) {
+				dir = 'down'
 			}
+			else if (startY - moveY > passPoint - 10) {
+				dir = 'up'
+			}
+			else if (-passPoint < startY - moveY < passPoint - 10) {
+				dir = 'mid'
+			}
+			
+			
+	
+			console.log(startY - moveY)
+			console.log(dir);
+			
+			if(dir === 'mid'){//중간값일때만 좌우로 이동.
+			nextPos = (startX - moveX);
+				if (index === 0) {
+				slide.css('left', -nextPos);
+			}
+			else {
+				slide.css('left', -nextPos + slideLeft);
+			}
+			} 
 			
 		})
 		$("#wrap").bind('touchend', function (event) {
-			endX = event.pageX || event.originalEvent.changedTouches[0].pageX;
-			endY = event.pageY || event.originalEvent.changedTouches[0].pageY;
+			endX = event.clientX || event.originalEvent.changedTouches[0].clientX;
+			endY = event.clientY || event.originalEvent.changedTouches[0].clientY;
 			$(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
-			console.log(startY - endY)
-			if(startY  - endY < -passPoint){
+		
+			movePos = 0;
+				if (startY - moveY < -passPoint) {
 				dir = 'down'
-			}else if(startY- endY > passPoint-20){
+			}
+			else if (startY - moveY > passPoint - 10) {
 				dir = 'up'
-			}else if(-passPoint < startY-endY < passPoint-20){
+			}
+			else if (-passPoint < startY - moveY < passPoint - 10) {
 				dir = 'mid'
-			}	
+			}
+			slideFunc(event);
 			
-			
-			console.log(dir);
+
+		})
+		
+		
+		function slideFunc(event) {
 			if(dir === 'up' || dir === 'down'){
-				event.preventDefault;
-				slide.css('left',-(slideWid * index));
-			} else{
-		slideFunc();
-			}
-			function slideFunc(event){
-					nextPos = (startX - moveX);
-			if (-nextPos < -point) {//기준선 넘을시.
-				if(index > 3){//마지막페이지 기준선 넘을때 페이지 안넘기도록
+				event.preventDefault();
+				return false;
+			} else {
+			nextPos = (startX - moveX);
+			if (-nextPos < -point) { //기준선 넘을시.
+				if (index > 3) { //마지막페이지 기준선 넘을때 페이지 안넘기도록
 					//slide.css('left', -(slideWid * index));
-					slide.animate({left:-(slideWid * index)},300,'easeOutCubic');
-				} else{
-				console.log('넘었다')
-				index++;
-				slideLeft = -(slideWid * index);
-//				slide.css('left',slideLeft);
-				slide.animate({left:slideLeft},500,'easeOutCubic');
-					}
-			}
-			else if(-nextPos > -point && -nextPos < 0){//기준선 안넘었을때
-				if(index === 0){
-					//slide.css('left', 0);
-					slide.animate({left:0},300,'easeOutCubic');
+					slide.animate({
+						left: -(slideWid * index)
+					}, 300, 'easeOutCubic');
 				}
-				else{
-//					slide.css('left', -(slideWid * index));
-					slide.animate({left:-(slideWid * index)},300,'easeOutCubic');
+				else {
+					console.log('넘었다')
+					index++;
+					slideLeft = -(slideWid * index);
+					slide.animate({
+						left: slideLeft
+					}, 500, 'easeOutCubic');
+				}
+			}
+			else if (-nextPos > -point && -nextPos < 0) { //기준선 안넘었을때
+				if (index === 0) {
+					slide.animate({
+						left: 0
+					}, 300, 'easeOutCubic');
+				}
+				else {
+					//					slide.css('left', -(slideWid * index));
+					slide.animate({
+						left: -(slideWid * index)
+					}, 300, 'easeOutCubic');
 					console.log(slideWid * index);
 				}
-				
 			}
-			else if(-nextPos > point && -nextPos > 0){//왼쪽 기준선 넘음
-				if(index === 0 ){
-					slide.animate({left:0},300,'easeOutCubic');
-				}else{
-				index--;
-				slideLeft = -(slideWid * index);
-					slide.animate({left:slideLeft},500,'easeOutCubic');
+			else if (-nextPos > point && -nextPos > 0) { //왼쪽 기준선 넘음
+				if (index === 0) {
+					slide.animate({
+						left: 0
+					}, 300, 'easeOutCubic');
+				}
+				else {
+					index--;
+					slideLeft = -(slideWid * index);
+					slide.animate({
+						left: slideLeft
+					}, 500, 'easeOutCubic');
 					console.log('뒤로간다');
 				}
 			}
-			else if(-nextPos < point && -nextPos > 0){
-				slide.animate({left:-(slideWid * index)},300,'easeOutCubic')
+			else if (-nextPos < point && -nextPos > 0) {
+				slide.animate({
+					left: -(slideWid * index)
+				}, 300, 'easeOutCubic')
 			}
 			index = index;
-			
-			}//함수끝
-		
-		})
-		
+	}
+		} //함수끝
 	}); //jqb
     </script>
 </html>

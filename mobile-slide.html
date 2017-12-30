@@ -116,6 +116,12 @@
 </body>
 
 <script>
+    /* window 스크롤이 아닐때만 함수가 동작하도록
+    true일때만 작동하고 false일때
+    setTImeout에 함수를 담아놓고
+    터치스타트할때 cleartimeout을 응용해보자.
+    
+    */
 	$(document).ready(function () {
 		var point = $(window).width() / 5;
 		$('#wrap').append("<span class='line'></span>");
@@ -202,8 +208,6 @@
 // 				dir = 'mid'
 // 			}
 			slideFunc(event);
-			
-
 		})
 		
 		

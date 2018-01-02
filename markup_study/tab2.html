@@ -1,0 +1,201 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+<script>
+     $(document).ready(function() {
+
+            function tab(a, b) {
+                if (a == 'clickTab' || a=='') { //만약 파라미터가 clickTab이면
+
+                    $("# contentbox .tab-menu li").on('click', function() {
+                        var sellist = $(this);
+                        work(sellist);
+                        
+                        if(b=='show'){
+                            funcshow(sellist);
+                        }
+                        else if(b=='fade'){
+                            funcfade(sellist);
+                        }
+                
+                        
+                    }); //click
+                } //if
+                else if (a == 'hoverTab') {
+                    $(".tab-menu li").mouseenter(function() {
+                        var sellist = $(this);
+                        work(sellist);
+
+                         if(b=='show'){
+                            funcshow(sellist);
+                        }
+                        else if(b=='fade'){
+                            funcfade(sellist);
+                        }
+                    })
+                } //else if  
+      
+
+                //work함수(같은 동작을 함수하나로 만듬)
+               var num;
+                function work(sellist) {
+                    num = sellist.index();//work바깥에 있는 num변수에 새 값을 넣어줌
+                    $(sellist).addClass('active').siblings().removeClass();
+                  $(".content").eq(num).show().siblings().hide();
+                } //work함수
+                
+                var selcont=$(".content");
+                function funcfade(sellist){//페이드함수
+                    num = sellist.index();
+                    selcont.eq(num).fadeIn(500).siblings().hide();
+                }
+
+                function funcshow(sellist){//슬라이드
+                    num = sellist.index(); 
+                    selcont.eq(num).show().siblings().hide();
+                }
+            } //tab 함수
+
+         
+            //tab('clickTab','fade');
+            //tab('clickTab','show');
+            //tab('hoverTab','fade');
+            //tab('hoverTab','show');
+            tab('#contentbox');
+            tab('#contentbox2');
+
+        
+        }); //제이쿼리
+
+    
+    </script>
+<style>
+       .menubox {
+            position: relative;
+            width: 500px;
+            height: 200px;
+            background-color: #fff;
+        }
+        /* 탭메뉴 */
+        
+       .menubox .tab-menu {
+            width: 100%;
+            height: 50px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+        
+        .menubox .tab-menu li {
+            width: 25%;
+            height: 100%;
+            text-align: center;
+            float: left;
+            border-left: 1px solid #333;
+            border-bottom: 1px solid #333;
+            border-top:1px solid #333;
+            box-sizing: border-box;
+        }
+        
+       .menubox .tab-menu li:last-child {
+            border-right: 1px solid #333;
+        }
+        
+        .menubox .tab-menu li a {
+            display: block;
+            color: #333;
+            line-height: 50px;
+            text-decoration: none;
+        }
+        /* 메뉴활성 클래스*/
+        
+        .active {
+            border-bottom: none !important;
+            background-color: #e4e4e4;
+            font-weight: bold;
+            text-decoration: underline;
+        }
+        
+        .active a {
+            color: #fd0000 !important;
+        }
+        /* 컨텐츠박스 */
+        
+        .menubox #contentbox, .menubox #contentbox2 {
+            position: relative;
+            width: 100%;
+            height: 150px;
+        }
+        
+        #contentbox .content, #contentbox2 .content {
+            display: none;
+            width: 100%;
+            height: 100%;
+            background-color:skyblue;
+        }
+        #contentbox .content:first-child, #contentbox2 .content:first-child{
+          display:block;
+        }
+      .menubox .content span {
+            display:block;
+            position: absolute;
+            width:100px;
+            height: 50px;
+            text-align: center;
+            line-height: 50px;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color:#fff;
+            background-color:crimson;
+        }
+        
+        
+        
+        
+        
+    
+    </style>
+<body>
+
+  <div class="menubox">
+        <ul class="tab-menu">
+            <li class="active"><a href="#">사과</a></li>
+            <li><a href="#">복숭아</a></li>
+            <li><a href="#">바나나</a></li>
+            <li><a href="#">딸기</a></li>
+        </ul>
+        <div id="contentbox">
+            <div class="content"> <span>사과</span> </div>
+            <div class="content"> <span>복숭아</span> </div>
+            <div class="content"> <span>바나나</span> </div>
+            <div class="content"> <span>딸기</span> </div>
+        </div>
+    </div>
+    
+    <!-- 탭 구분 -->
+    
+    
+     <div class="menubox">
+        <ul class="tab-menu">
+            <li class="active"><a href="#">사과</a></li>
+            <li><a href="#">복숭아</a></li>
+            <li><a href="#">바나나</a></li>
+            <li><a href="#">딸기</a></li>
+        </ul>
+        <div id="contentbox2">
+            <div class="content"> <span>사과</span> </div>
+            <div class="content"> <span>복숭아</span> </div>
+            <div class="content"> <span>바나나</span> </div>
+            <div class="content"> <span>딸기</span> </div>
+        </div>
+    </div>
+    
+    
+
+</body>
+</html>

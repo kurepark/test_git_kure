@@ -1,0 +1,112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script>
+    $(function(){
+        $(".navi li").on('click',function(){
+            var $this = $(this);
+            var num = $this.index();
+           $this.addClass('selli').siblings().removeClass('selli'); 
+            $(".cont div").eq(num).show().siblings().hide();
+        });
+        
+        //앵귤러는 프레임 워크,워드프레스도~ - 완제품. 바꾸기 힘들다. 기능이 다 들어있어서 무겁다. 앵귤러는 데이터통신부터 싱글페이지 제이슨 라이트js 등등
+        
+        //리액트, 뷰, 제이쿼리, 부트스트랩-라이브러리, 내가 쉽게 변화를 줄 수 있다. 이걸 이용해서 이것저것 만들 수 있다. 어디다 넣어도 작동할 수 있다. 
+        
+        //a태그 -> 이동이 일어나야할때 사용, 로케이션의 변화 a태그로 버튼을 만들면 마우스 우클릭해서 새탭누르면 잘못된페이지 새롭게 뜬다. 그러니까 탭메뉴 버튼 만들땐 a태그 쓰지 말자.이렇게 되면 스크린리더에서 읽을때 a링크 우클릭 시에 새창으로 열리고 아무것도 안나오기 때문에 웹접근, 표준에 맞지 않음, a링크엔 onclick을 쓰지말자, 탭메뉴는 해당컨텐츠의 변동일뿐 로케이션의 이동이 아니기 때문에 버튼태그를 써야한다.
+        
+        //탭메뉴 컨텐츠는 ul.li로 만들지 않는다. 섹션으로 만드는것이 맞다.
+        //탭메뉴 구조를 짤때 버튼1 2 3 다음에 컨텐츠 1 2 3이 아니라 탭메뉴1-탭컨텐츠1, 메뉴2-컨텐츠2 이렇게 만들어야한다. 근데 지금처럼 짜도 문제는 없지만 접근성프로젝트를 진행할 때에는 엄격하게 맞춰야한다.!!!!
+        //button ->액션이 일어나야하는 동작엔 버튼, 웹표준에 이렇게 나와있다
+        //input type="submit" ->이 둘은 서버통신, 정보를 보낼때, 겟,포스트방식
+        
+        //인풋, 체크박스, 라디오는 디스플레이가 논이어도 기능을한다. 그리고 css에 인비저블하면 됨
+    });//jqb
+    </script>
+    <style>
+        body,html{
+            width:100%;
+            height: 100%;
+            margin:0;
+            padding:0;
+        }
+        .wrap{
+            width: 700px;
+            height: 380px;
+            margin:0 auto;
+            margin-top:100px;
+        }
+        .navi{
+            height: 50px;
+        }
+        .navi ul{
+            margin:0;
+            padding:0;
+            height: 100%;
+            list-style:none;
+            background-color:#fafafa;
+        }
+        .navi ul li{
+            width:150px;
+            height: 100%;
+            float:left;
+            background-color:#eee;
+            text-align: center;
+            line-height: 50px;
+            
+            
+        }
+        .navi ul li a{
+            color:#aaa;
+            text-decoration:none;
+        }
+        .selli{
+            background-color:#fff !important;
+            border-bottom:1px solid #fff !important;
+            border-top:1px solid #000;
+            border-left:1px solid #000;
+            border-right:1px solid #000;
+        }
+        .selli a{
+            color:#000 !important;
+        }
+        .cont{
+            width:100%;
+            height: 100%;
+            border:1px solid #000;
+            text-align: center;
+        }
+        .cont div{
+            position:absolute;
+            display: none;
+        }
+        .cont div:first-child{
+            display:block;
+        }
+        
+        
+        
+    </style>
+</head>
+<body>
+
+
+<div class="wrap">
+    <div class="navi">
+    <ul>
+        <li class="selli"><a href="#">tab01</a></li>
+        <li><a href="#">tab02</a></li>
+    </ul>
+</div>
+<div class="cont">
+    <div>tab01</div>
+    <div>tab02</div>
+</div>
+</div>
+
+</body>
+</html>

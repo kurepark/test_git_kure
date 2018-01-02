@@ -1,0 +1,174 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>slide</title> 
+    
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script
+  src="https://code.jquery.com/ui/1.12.0/jquery-ui.min.js"
+  integrity="sha256-eGE6blurk5sHj+rmkfsGYeKyZx3M4bG+ZlFyA7Kns7E="
+  crossorigin="anonymous"></script>
+<script>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    $(document).ready(function(){
+
+           
+   var autoslide;
+       function auto(){
+            autoslide= setInterval(function(){
+        $(".slide").animate({left:"-100%"},500,function(){//ul의 left -100%, 하나가 흐를때 0.5초씩 스윽.
+            $(this).append($(".slide li").first()).css('left','0')//그 ul뒤에 ul li의 첫번째꺼를 붙여라.그리고 left를 0으로 만들어라
+        });
+        
+   },3000)//3초간 슬라이드1~2로
+       }
+       
+//        
+        $(".button-box .stop").on('click',function(){
+            clearInterval(autoslide);//변수일때만 작동해서 변수로 담았습니다..
+           alert('멈춰랏');
+        }) 
+        
+        $(".button-box .go").on('click',function(){
+            auto();
+           alert('다시시작');
+        })
+        
+   
+        /*좌우버튼 클릭*/
+        //var scnt=0;
+        $(".sliderbox .btn-next").on('click',function(){
+            //scnt++;
+            $(".slide").animate({left:'-100%'},500,function(){
+                $(this).append($(".slide li").first()).css('left','0')
+            });
+        });//click-prev 
+        $(".sliderbox .btn-prev").on('click',function(){
+            //scnt--;
+            $(".slide").animate({left:'100%'},500,function(){
+                $(this).prepend($(".slide li").last()).css('left','0')
+            });
+        });//click-prev
+        
+        
+        
+        
+    });//jqb
+    
+    
+    
+
+    </script>
+<style>
+    .sliderbox{
+        position:relative;
+  width:600px;
+  height:100px;
+  border:3px solid #555;
+  overflow:hidden;
+        margin:0 auto;
+}
+.slide{
+    position:relative;
+  width:500%;
+  height:100%;
+  margin:0;
+  padding:0;
+  left:0;
+  list-style:none;
+}
+.slide::after{
+  content:"";
+  display:none;
+  clear:both;
+}
+ul.slide li{
+  width:20%;
+  height:100px;
+left:0;
+  float:left;
+  background-color:#fff;
+  text-align:center;
+  line-height:100px;
+}
+.sliderbox .btn{
+  position:absolute;
+  display:block;
+  width:20px;
+  height:100%;
+  top:0;
+  border:1px solid #555;
+  color:red;
+  cursor:pointer;
+}
+.sliderbox span.btn-prev{
+  left:0;
+}
+.sliderbox span.btn-next{
+  right:0;
+}
+
+.button-box{
+  width:100px;
+  height:50px;
+  color:#fff;
+  line-height:50px;
+  margin-top:30px;
+  text-align:center;
+  border:1px solid #e4e4e4;
+  cursor:pointer;
+}
+span.playbtn{
+  display:inline-block;
+  width:40px;
+  background-color:#555;
+}
+    </style>
+</head>
+<body>
+  <div class="box" id="slide01">
+   <div class="sliderbox">
+<ul class="slide">
+<li>슬라이드1</li>
+<li>슬라이드2</li>
+<li>슬라이드3</li>
+<li>슬라이드4</li>
+<li>슬라이드5</li>
+</ul>
+<span class="btn btn-prev">앞으로</span>
+<span class="btn btn-next">뒤로</span>
+</div>
+<div class="button-box">
+<span class="playbtn go">계속</span>
+<span class="playbtn stop">멈춤</span>
+</div>
+</div>
+</body>
+</html>

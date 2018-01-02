@@ -1,0 +1,366 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>기존슬라이드</title>
+     <script src="jquery-1.7.2.min.js"></script>
+     
+   
+     <style>
+     
+ 
+ #slidebox{
+  position:relative;
+  width:350px;
+  height:100px;
+  border:1px solid #555;
+  overflow:hidden;
+        margin:0 auto;
+}
+.slider{
+    position:relative;
+  width:1000%;
+  height:100%;
+    left:0;
+  list-style:none;
+  margin:0;
+  padding:0;
+}
+.slider li{
+  float:left;
+  width:10%;
+  height:100%;
+  line-height:100px;
+  text-align:center;
+}
+.btn{
+  position:absolute;
+  top:0;
+  width:25px;
+  height:100px;
+  background-color:#fff;
+}
+.btn-next{
+  right:0;
+}
+.btn a{
+  color:#555;
+  text-decoration:none;
+}
+   .bullet{
+     width:150px;
+     height:10px;
+     margin:0 auto;
+   }
+   .bullet ul{
+     width:100%;
+     height:100%;
+     list-style:none;
+     margin:0;
+     padding:0;
+     margin-top:20px;
+   }
+   .bullet ul li{
+     width:10px;
+     height:10px;
+     content:"";
+     border-radius:50%;
+     background-color:#555;
+     margin:10px;;
+     float:left;
+     cursor:pointer;
+     transition:all .5s;
+   }
+   .selb{
+     background-color:#ccc !important;
+   }
+   .autobtn{
+     width:50px;
+     height:25px;
+     background-color:#ccc;
+     border:1px solid #333;
+     color:#333;
+     cursor:pointer;
+   }
+   #wrap{
+     position:relative;
+     width:400px;
+     height:120px;
+     margin:0 auto;
+     outline:1px solid red;
+   }
+    </style>
+</head>
+<body>
+<div id="wrap">
+<div id="slidebox" class="sbox">
+<ul class="slider">
+<li style="background-color:#5181c3">슬라이드1</li>
+<li style="background-color:#ff7892">슬라이드2</li>
+<li style="background-color:#fffa78">슬라이드3</li>
+<li style="background-color:#51a846">슬라이드4</li>
+<li style="background-color:#ca8ef5">슬라이드5</li>
+<li style="background-color:#5181c3">슬라이드6</li>
+<li style="background-color:#ff7892">슬라이드7</li>
+<li style="background-color:#fffa78">슬라이드8</li>
+<li style="background-color:#51a846">슬라이드9</li>
+<li style="background-color:#ca8ef5">슬라이드10</li>
+</ul>
+
+
+
+</div>
+
+<span class="btn btn-next"><a href="#">다음</a></span>
+<span class="btn btn-prev"><a href="#">이전</a></span>
+<div class="bullet">
+<ul>
+<!-- <li class=" b0 selb"></li>
+<li class=" b1"></li>
+<li class=" b2"></li>
+<li class=" b3"></li>
+<li class="b4"></li>
+<li class=" b5"></li>
+<li class=" b6"></li>
+<li class=" b7"></li>
+<li class=" b8"></li>
+<li class="b9"></li> -->
+</ul>
+
+</div>
+</div>
+<div style="width:120px;margin:0 auto;">
+<button class="autobtn btn-go">
+go
+</button>
+<button class="autobtn btn-stop">
+stop
+</button>
+</div>
+
+
+
+</body>
+
+  <script>
+      (function($){
+  $.fn.slideMenu = function(options){
+    var setting = $.extend({
+      eventType : 'click',
+      slidenum :1,
+      slideType : 'one'
+    },options);
+    return this.each(function(){
+
+      var eType = setting.eventType,
+          sts = 0,
+          $this = $(this),
+          slider = $this.find('.slider'),
+          maxli = $(".slider li").length,
+          //bulletli = $(".bullet li"),작동안함.
+          slidests=0,
+          snum = setting.slidenum,
+          sType = setting.slideType,
+          csts = 0//클릭동작체크(이전,다음,블릿인지 확인)
+
+          if(eType == 'click'){
+          var swid = slider.width()/snum;
+          slider.css('width',swid);
+          var sleng = slider.find('li').width();//li크기 변경 후 가로값확인 
+          var  endcheck = Math.ceil(maxli/snum);
+
+
+         var bulletli;
+         var bullhtml = '';
+         makebullet();//들어오자마자 블릿생성
+
+
+
+            $(".btn-next").on('click',function(){//다음 클릭
+
+     csts = 0;
+              if(sType == 'one'){
+              if(sts>maxli-2){
+            //sts=maxli-1;
+            sts=-1;
+            //return false;
+             }
+            sts++;
+      slidework();
+     bulletwork();
+            }
+            else if(sType == 'pack' && endcheck > 1){//2개이상 보여줄때
+              if(sts > endcheck-2){
+            //sts=maxli-1;
+            sts=-1;
+            //return false;
+             }
+            sts++;
+      slidework();
+     bulletwork();
+            }
+
+
+
+    });//next
+     $(".btn-prev").on('click',function(){//이전 클릭
+
+          csts = 1;
+     if(sType=='one'){
+     if(sts<1){
+              //sts=0;
+              sts=maxli;
+              //return false;
+          }
+     sts--;
+          slidework();
+          bulletwork();
+     }
+      else if(sType =='pack'){
+      if(sts<1){
+      sts=endcheck;
+      }
+      sts--;
+      slidework();
+          bulletwork();
+      }
+
+      })//prev
+
+
+      bulletli.on('click',function(){//블릿 클릭시 동작
+      csts = 2;
+      sts = $(this).index();
+     $(this).addClass('selb').siblings().removeClass('selb');
+     slidework();
+      })//블릿클릭 끝
+      
+  
+
+       $(".btn-go").on('click',function(){//자동슬라이드 클릭
+       if(slidests==0){
+        autoFunc();
+          slidests=1;
+       }
+       else{return false}
+
+      })//자동슬라이드클릭버튼 끝
+
+
+     $("#wrap").mouseenter(function(){//마우스오버
+     if(slidests==1){
+     stopFunc();
+     }
+     })
+     $("#wrap").mouseleave(function(){//마우스아웃
+     if(slidests==1){
+    autoFunc();
+     }
+     })
+
+
+      $(".btn-stop").on('click',function(){//자동슬라이드 멈춤 클릭
+     stopFunc();
+     slidests=0;
+      })
+
+          }//if문
+
+   //4초마다 자동슬라이드
+
+
+   function autoFunc(){//자동 슬라이드 함수
+   autoslide = setInterval(function(){
+          $(".btn-next").stop().trigger('click')
+          },1000);
+   }
+
+   function stopFunc(){//클리어 인터벌
+   clearInterval(autoslide);
+   }
+
+  function slidework(){
+  if(sType == 'one'){//슬라이드가 한장씩 이동할때
+
+
+  if(csts == 0){//다음 클릭
+  slider.stop().animate({left:-(sleng)+'px'},500,function(){
+  slider.append($(".slider li").first()).css('left',0);
+  })
+
+  }//if 
+  
+  
+  else if(csts == 1){//이전 클릭
+  slider.prepend($(".slider li").last()).css('left',-(sleng)+'px');//잘라서 앞에 놓고
+  slider.stop().animate({left:0},500);//동작시키기
+
+  }//else if
+
+  else if(csts == 2){//블릿클릭때
+  slider.stop().animate({left:-(sleng*sts)+'px'},500);
+  }//else if
+
+
+  }//슬라이드가 한장씩 이동 끝
+  
+  
+  else if(sType =='pack' && endcheck > 1){//슬라이드가 묶음으로 이동할때
+  
+  
+  if(csts == 0){//다음 클릭
+  slider.stop().animate({left:-(sleng*snum)+'px'},500,function(){
+  slider.append($(".slider li:lt("+snum+")")).css('left',0);
+  })
+  }//if
+  
+  
+  else if(csts == 1){//이전클릭
+
+  slider.prepend($(".slider li:gt("+(maxli-snum-1)+")")).css('left',-(sleng*snum)+'px');//잘라서 앞에 놓고
+  slider.stop().animate({left:0},500);//동작시키기
+
+  }//else if
+
+
+  else if(csts == 2){//블릿 클릭시 이동
+  slider.stop().animate({left:-((sts*sleng)*snum)+'px'},500)
+  }//else if
+  
+  }//묶음으로 이동 끝
+
+  }//slidework끝
+
+
+  function makebullet(){//블릿만들기 함수
+    if(sType=='one'){
+          for(var i=0;i<maxli;i++){
+           bullhtml += '<li></li>'
+          }
+         }
+         else if(sType=='pack'){
+         for(var i=0;i<endcheck;i++){
+            bullhtml += '<li></li>'
+          }
+         }
+          $(".bullet ul").html(bullhtml);
+         bulletli = $(".bullet li");//li만들어지고 담기.
+         bulletli.first().addClass('selb');
+  }//makebullet함수 끝
+
+  function bulletwork(){//블릿에 클래스주는 함수
+   bulletli.eq(sts).addClass('selb').siblings().removeClass('selb');
+  }//bulletwork끝 
+
+    })
+  }//
+
+
+  })(jQuery);
+
+
+  $("#slidebox").slideMenu({slideType:'one',slidenum:4});
+
+
+    </script>
+</html>

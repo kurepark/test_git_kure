@@ -1,0 +1,352 @@
+<!--
+position과 display를 같이 쓰지 않는다
+간혹 세로정렬을 위해 사용하기도 하지만 같이 쓰지 않는다.거의.
+float처리를 하면 인라인블럭의 속성을 가지기 때문에 display와 같이 쓰지 않는다.
+
+float해제 방법.
+빈태그로 clear하는 방법. 그러나 빈태그 사용은 좋지 않다.
+인라인요소는 line-height의 영향을 받기 때문에 line-height에 따라 영역이 달라진다.
+float은 인라인블럭의 요소를 가지기 떄문에 자식들 만큼만 벌어진다. 따라서 width, height를 줘야함.
+
+섹션에는 헤딩태그를 가지고 있어야한다.
+
+
+
+과제
+
+태그상 로고가 첫번째로 와야함.
+보여주는 순서가 아니라 로고와 gnb등 접근성을 고려해서 태그를 작성한다.
+
+마진은 형제끼리의 간격을 벌릴때 사용한다.
+자식과 나와의 간격을 벌릴땐 패딩을 사용한다.
+마진은 병합현상이 생긴다.
+
+
+box가 모두 이름이 같기 때문에 하나의 섹션에 박스를 10가지를 써야한다.
+171223스터디파일의 패딩을 나눠주는 방법으로 사용해서 영역을 나눈다
+디자인에 따라 박스의 내용이 서로 다른 컨텐츠라면 그때 한줄씩 묶거나 하는 레이아웃을 잡는다
+
+em은 부모의 영향을
+rem은 최상위 html,body 폰트사이즈를 기준으로 계산됨.
+
+-->
+
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>2회차 과제</title>
+    <link href="reset.css" rel="stylesheet" type="text/css">
+    <style>
+        html,body{
+            color:#555;
+        }
+        a{
+            text-decoration: none;
+            color:#555;
+        }
+        .wrap{
+            width:100%;
+            height: 100%;
+        }
+        header{
+            width:100%;
+/*            height: 40px;*/
+        }
+        header .top-area{
+            width:100%;
+            height: 40px;
+            border-bottom:1px solid #e4e4e4;
+            
+        }
+        header .top{
+            position:relative;
+            width:1670px;
+            margin:0 auto;
+        }
+        header .top .top-icon span{
+            display:inline-block;
+            width:40px;
+            line-height: 40px;
+            text-align:center;
+            border-left:1px solid #e4e4e4;
+            box-sizing:border-box;
+        }
+        header .top .top-icon span:last-child{
+            border-right:1px solid #e4e4e4;
+        }
+        header .top .top-menu{
+            position:absolute;
+            right:0;
+            top:0;
+        }
+        header .top .top-menu::after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+        header .top .top-menu li{
+            float:left;
+            border-left:1px solid #e4e4e4;
+        }
+        header .top .top-menu li:last-child{
+            border-right:1px solid #e4e4e4;
+        }
+        header .top .top-menu li a{
+            font-size:11px;
+            line-height:40px;
+            padding:0 17px;
+        }
+        
+        header .top-menu-area{
+            position:relative;
+/*            height: 110px;*/
+        }
+        header .top-menu-area .logo{
+            width:150px;
+            color:aqua;
+            font-size:30px;
+            line-height:110px;
+        }
+        header .top-menu-area .gnb{
+            position:absolute;
+            bottom:0;
+            right:0;
+        }
+        header .top-menu-area .gnb ul::after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+        header .top-menu-area .gnb li{
+            padding:20px 15px 30px;
+            float:left;
+        }
+        header .top-menu-area .gnb li a{
+            font-size:18px;
+            font-weight:600;
+        }
+        header .top-menu-area .sub-menu{
+            position:absolute;
+            right:0;
+            top:0;
+        }
+        header .top-menu-area .sub-menu li{
+            padding-left:20px;
+                padding-top:20px;
+            float:left;
+        }
+        header .top-menu-area .sub-menu li a{
+            font-size:14px;
+        }
+        header .top-main{
+            position:relative;
+            width:1670px;
+            height:680px;
+            background-color:#ccc;
+            margin:0 auto;
+        }
+        header .top-main .btn{
+            position:absolute;
+            width:60px;
+            height: 60px;
+            background-color:dodgerblue;
+            border-radius:50%;
+            border:none;
+            color:#fff;
+            font-size:20px;
+            top:50%;
+            left:-30px;
+            transform:translateY(-50%);
+        }
+        header .top-main .btn-next{
+            right:-30px;
+        }
+        .contents{
+            width:1100px;
+            margin:50px auto;
+        }
+        .contents .cont1,
+        .contents .cont2{
+            height:280px;
+            margin-bottom:20px;
+        }
+        .contents .cont1 .multi-box div,
+        .contents .cont2 .multi-box div{
+            height:130px;
+            margin-bottom:20px;
+        }
+        .contents .cont1 .multi-box div:last-child,
+        .contents .cont2 .multi-box div:last-child{
+            margin-bottom:0;
+        }
+        .contents .cont3{
+            height:120px;
+        }
+        .contents article>div{
+            width:260px;
+            height: 100%;
+            margin-right:20px;
+            float:left;
+            color:#222;
+            font-size:40px;
+            text-align:center;
+        }
+        .contents article>div:last-child{
+            margin-right:0
+        }
+        .contents .cont1 div:first-child,
+        .contents .cont1 div:nth-child(2){
+            background-color:#e4e4e4;
+        }
+        .contents .cont1 div:nth-child(3){
+            background-color:dodgerblue;
+        }
+        .contents .cont1 .multi-box div:first-child{
+            background-color:darkblue;
+        }
+        .contents .cont1 .multi-box div:last-child{
+            background-color:powderblue;
+        }
+        .contents .cont2 .multi1 div:first-child{
+            background-color:green;
+        }
+        .contents .cont2 .multi1 div:last-child{
+            background-color:darkgreen;
+        }
+        .contents .cont2 .large-box{
+            background-color:#e4e4e4;
+        }
+        .contents .cont2 .multi2 div:first-child{
+            background-color:yellow;
+        }
+        .contents .cont2 .multi2 div:last-child{
+            background-color:darkgoldenrod;
+        }
+        .contents .cont3 div{
+            background-color:#6e6e6e;
+        }
+        footer{
+            width:100%;
+            height: 150px;
+        }
+        footer>div{
+            width:1670px;
+            margin:0 auto;
+        }
+        footer>div .footer-logo{
+            font-size:30px;
+            color:aqua;
+            vertical-align:top;
+        }
+        footer>div address{
+            display:inline-block;
+            margin-left:55px;
+        }
+        footer>div address span{
+            display:inline-block;
+            padding:5px 12px;
+            font-size:13px;
+            border:1px solid #e4e4e4;
+        }
+        footer>div address p{
+            padding:15px 0;
+            font-size:11px;
+        }
+    </style>
+</head>
+<body>
+<section class="wrap">
+    <header>
+      <div class="top-area">
+       <div class="top">
+          <div class="top-icon">
+              <span><a href="#"><img src="Home.png" alt="메인으로" title="메인으로"></a></span>
+              <span><a href="#"><img src="Star.png" alt="즐겨찾기" title="즐겨찾기"></a></span>
+          </div>
+           <ul class="top-menu">
+               <li><a href="#">CONTACT US</a></li>
+               <li><a href="#">LOGIN</a></li>
+           </ul>
+       </div>
+       </div>
+       <div class="top-menu-area">
+           <div class="logo">로고이지롱</div>
+        <nav class="gnb">
+            <ul>
+                <li><a href="#">메뉴1</a></li>
+                <li><a href="#">메뉴2</a></li>
+                <li><a href="#">카테고리3</a></li>
+                <li><a href="#">메뉴4</a></li>
+                <li><a href="#">카테고리5</a></li>
+                <li><a href="#">메뉴6</a></li>
+                <li><a href="#">메뉴7</a></li>
+                <li><a href="#">메뉴8</a></li>
+                <li><a href="#">메뉴9</a></li>
+            </ul>
+        </nav>
+           <nav class="sub-menu">
+               <ul>
+                   <li><a href="#">소메뉴1</a></li>
+                   <li><a href="#">소메뉴2</a></li>
+               </ul>
+           </nav>
+       </div>
+       <div class="top-main">
+           <button class="btn btn-prev">&lt;</button>
+           <div class="slider"></div>
+           <button class="btn btn-next">&gt;</button>
+           <ul class="bullet">
+               <li><span></span></li>
+               <li><span></span></li>
+               <li class="active"><span></span></li>
+           </ul>
+       </div>
+    </header>
+    <section class="contents">
+        <article class="cont1">
+            <div class="large-box">box1</div>
+            <div class="large-box">box2</div>
+            <div class="large-box">box3</div>
+            <div class="multi-box">
+                <div>box4-1</div>
+                <div>box4-2</div>
+            </div>
+        </article>
+        <article class="cont2">
+             <div class="multi-box multi1">
+                <div>box5-1</div>
+                <div>box5-2</div>
+            </div>
+            <div class="large-box">box6</div>
+             <div class="multi-box multi2">
+                <div>box7-1</div>
+                <div>box7-2</div>
+            </div>
+            <div class="large-box">box8</div>
+        </article>
+        <article class="cont3">
+            <div class="multi-box">
+                <div>box9-1</div>
+                <div>box9-2</div>
+            </div>
+            <div class="small-box">box10</div>
+            <div class="small-box">box11</div>
+            <div class="small-box">box12</div>
+        </article>
+    </section>
+</section>
+<footer>
+    <div>
+        <span class="footer-logo">로고이지롱</span>
+        <address>
+            <span><a href="#">개인정보취급방침</a></span>
+            <p>Copyright (C) 2017 BCU. All rights reserved. </p>
+        </address>
+    </div>
+</footer>
+
+
+</body>
+</html>

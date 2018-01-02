@@ -1,0 +1,141 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <script src="../jquery-3.2.1.min.js"></script>
+    <script src="../jquery-ui.min.js"></script>
+</head>
+<script>
+    $(document).ready(function () {
+        autoSlide();
+        $('.bullet li').on('click',function(){
+           showslide = snum; $(this).addClass('active').siblings().removeClass('active');
+            
+            $('slider li').eq(snum).css('left',0);
+        })
+        
+        
+        
+        
+    });
+    var snum = 0;
+    function autoSlide() {
+        interval = setInterval(function () {
+            $('.slider').animate({
+                left: -100 + '%'
+            }, 500, function () {
+                $('.slider').append($('.slider li').first()).css('left', 0)
+            })
+            snum++;
+            if (snum == 5) {
+                snum = 0
+            }
+            $('.bullet li').eq(snum).addClass('active').siblings().removeClass('active');
+        }, 5000)
+    }
+</script>
+<style>
+    html,
+    body {
+        margin: 0;
+        padding: 0;
+        width: 100%;
+        height: 100%;
+    }
+    
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+    }
+    
+    section {
+        width: 1000px;
+        height: 500px;
+        background-color: #fabdbd;
+        margin: 0 auto;
+    }
+    
+    .slidebox {
+        width: 400px;
+        height: 100px;
+        border: 1px solid #555;
+        margin: 0 auto;
+    }
+    
+    .slider {
+        position: relative;
+        width: 500%;
+        height: 100%;
+        left: 0;
+    }
+    
+    .slider li {
+        width: 20%;
+        height: 100%;
+        float: left;
+        text-align: center;
+        background-color: #ade9ff;
+    }
+    
+    .slider li span {
+        font-size: 25px;
+        color: #555;
+        line-height: 100px;
+    }
+    
+    .bulletbox {
+        width: 150px;
+        height: 20px;
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+    
+    .bullet {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .bullet li {
+        float: left;
+        width: 10px;
+        height: 10px;
+        margin: 0 10px;
+        border-radius: 50%;
+        background-color: #ffffff;
+        border: 1px solid #555;
+    }
+    
+    li.active {
+        background-color: #555;
+    }
+</style>
+
+<body>
+    <section>
+        <!--이건 그냥 배경-->
+        <div class="slidebox">
+            <ul class="slider">
+                <li><span>1</span></li>
+                <li><span>2</span></li>
+                <li><span>3</span></li>
+                <li><span>4</span></li>
+                <li><span>5</span></li>
+            </ul>
+        </div>
+        <div class="bulletbox">
+            <ul class="bullet">
+                <li class="active"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+        </div>
+    </section>
+</body>
+
+</html>

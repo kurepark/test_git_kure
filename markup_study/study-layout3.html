@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+        <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+
+
+    <style>
+        html,body{
+            height:100%;
+            margin:0;
+            padding:0;
+        }
+        *{margin:0;padding:0;}
+        #wrap{
+            width:1600px;
+            height:1000px;
+            background-color:#fff;
+        }
+        #wrap .gnb{
+            height:50px;
+            background-color:blue;
+        }
+        #wrap .gnb ul{
+            width:500px;
+            height:100%;
+            margin:0 auto;
+            background-color:red;
+            list-style:none;
+        }
+        #wrap .gnb ul li{
+            width:100px;
+            height: 100%;
+            border-right:1px solid #fff;
+            text-align:center;
+            float:left;
+            box-sizing: border-box;
+        }
+        #wrap .gnb ul li:first-child{
+            border-left:1px solid #fff;
+        }
+        #wrap .gnb ul li a{
+            color:#fff;
+            text-decoration: none;
+            line-height:50px;
+        }
+        header{
+            height:400px;
+            background-color:#117378;
+        }
+        header div{
+            width:1000px;
+            padding:140px 0 150px 0;
+            margin:0 auto;
+        }
+        header div h1{
+            color:#fff;
+            font-size:48px;
+        }
+        header div p{
+            font-size:18px;
+            color:#a6c1c3;
+            line-height: 1;
+        }
+        article{
+            position:relative;
+            width:1000px;
+            height: 360px;
+            margin:0 auto;
+            padding:10px 0;
+        }
+        article .cont{
+            width:326px;
+            float:left;
+        }
+        
+        article .up{
+            height: 150px;
+            padding-bottom:10px;
+        }
+        article .down{
+            height: 200px;
+        }
+        article .up1>div,
+        article .down1>div{
+            width:100%;
+            height: 100%;
+            background-color:green;
+        }
+        article .up2, .down2{
+            padding:0 10px;
+        }
+        article .up2>div:first-child, 
+        article .down2>div:first-child{
+            width:50%;
+            height:100%;
+            background-color:#112c77;
+            float:left;
+        }
+        article .up2>div:last-child,
+        article .down2>div:last-child{
+            width:50%;
+            height:100%;
+            background-color:#b061bc;
+            float:right;
+        }
+        article .up3 div:first-child,
+        article .down3 div:first-child{
+            width:50%;
+            height: 100%;
+            background-color:#ff6000;
+            float:left;
+        }
+        article .up3 div:nth-child(2),
+        article .down3 div:nth-child(2){
+            width:50%;
+            height:50%;
+            background-color:#ffd800;
+            float:right;
+        }
+        article .up3 div:nth-child(3),
+        article .down3 div:nth-child(3){
+             width:50%;
+            height:50%;
+            background-color:#6a1177;
+            float:right;
+        }
+        
+        .quick{
+            position:absolute;
+            width:100px;
+            height:120px;
+            right:-130px;
+            background-color:#333;
+            color:#fff;
+            text-align:center;
+        }
+
+        .lnb{
+            height:40px;
+            background-color:#ddd;
+        }
+        .lnb ul{
+            width:1000px;
+            margin:0 auto;
+            list-style:none;
+        }
+        .lnb ul::after{
+            content:"";
+            display:block;
+            clear:both;
+        }
+        .lnb ul li{float:left;font-size:8px;}
+        .lnb ul li a{padding:0 5px;
+            font-size:12px;
+            line-height: 40px;
+            color:#444;
+            text-decoration: none;
+        }
+        footer{
+            height:130px;
+            border-top:1px solid #000;
+            background-color: #444;
+        }
+        footer div{
+            width:1000px;
+            margin:0 auto;
+            color:#fff;
+            font-size:12px;
+        }
+        footer div p:first-child{
+            padding-top:30px;
+        }
+        footer div p:last-child{
+            padding-top:20px;
+            color:#888;
+        }
+    </style>
+</head>
+<body>
+<section id="wrap">
+    <nav class="gnb">
+        <ul>
+            <li><a href="#">GNB1</a></li>
+            <li><a href="#">GNB2</a></li>
+            <li><a href="#">GNB3</a></li>
+            <li><a href="#">GNB4</a></li>
+            <li><a href="#">GNB5</a></li>
+        </ul>
+    </nav>
+    <header>
+        <div>
+            <h1>VISUAL</h1>
+            <p>test test test</p>
+            <p>test test test</p>
+        </div>
+    </header>
+    <article>
+        <div class="up up1 cont">
+            <div></div>
+        </div>
+        <div class="up up2 cont">
+            <div></div>
+            <div></div>
+        </div>
+        <div class="up up3 cont">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="down down1 cont">
+            <div></div>
+        </div>
+        <div class="down down2 cont">
+            <div></div>
+            <div></div>
+        </div>
+        <div class="down down3 cont">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+        <div class="quick">quick</div>
+    </article>
+    <nav class="lnb">
+        <ul>
+            <li><a href="#">test</a>|</li>
+            <li><a href="#">test</a>|</li>
+            <li><a href="#">test</a></li>
+        </ul>
+    </nav>
+    <footer>
+        <div>
+            <p>SK플래닛(주)는 통신판매중개자로서 오픈마켓 11번가의 거래당사자가 아니며,<br> 
+입점판매자가 등록한 상품정보 및 거래에 대해 SK플래닛(주)는 일체 책임을 지지 않습니다.</p>
+            <p>Copyright SK planet. All rights reserved.</p>
+        </div>
+    </footer>
+</section>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Untitled Document</title>
+    <style>
+        *{margin:0;padding:0}
+        
+        .d1{
+            width:100%;
+            height:300px;
+            padding-top:100px;
+            background-color:green;
+        }
+        .d2{
+            width:80%;
+            height:100px;
+            margin:0 auto;
+            background-color:red;
+        }
+        
+    </style>
+</head>
+<body>
+<!--
+인라인요소는 마진값을 먹지 않는다. 단 img태그는 마진이 된다.
+
+인라인요소-그 자체가 영역! 인라인요소에 다른걸 주지 않고 패딩을 줄 경우 기본 라인하이트를 기준으로 패딩값이 늘어난다.  이럴경우 상위태그에는 영향을 전혀 주지 않는다. 하위태그에만 영향을 준다.
+인라인요소도 마진 좌우는 먹지만..이럴거면 그냥 인라인블록으로 써라.
+
+
+margin-top은 상위태그...가 있어야 밀린다. 상위태그가 없이 부모태그만 있을 경우엔 부모태그가 마진탑을 먹음.
+
+마진과 마진이 겹치면 더해진다.
+div박스 2개가 마진 50px씩 서로 밀면...서로...밀어서 50만 벌어짐. 100이 아님. 
+
+
+블록요소에 width값없이 패딩을 주면 width 100% 안으로 패딩만큼 들어감
+근데 width값을 100%을 주고 패딩을 100을 주면 width값이 200이 된다. 이럴땐 box-sizing:border-box를 준다. 
+padding:50px;width:500px ->이러면 width가 600px이 된다
+padding:50px ->이럴땐 기본 width값이 나옴. 패딩이 안더해짐.
+이럴때 box-sizing:border-box를 주면 패딩이 더해지지 않은 width값이 나온다.
+
+
+제이쿼리에서
+.width();->실제 width값
+.innerWidth()->패딩값을 포함한 width값
+.outerWidth()->패딩, 보더값까지 더한 width값.
+
+근데 여기서 box-sizing:border-box를 쓰면
+.width();->실제 width값(보더와 패딩을 모두 뺀 값)
+.innerWidth()->패딩값을 포함하고 보더는 뺀 width값
+.outerWidth()->패딩, 보더값까지 더한 width값.->박스사이징을 썼을때 제대로 알고 싶으면 이걸.
+
+
+
+vertical-align속성
+인라인요소 자체에 적용이된다. 내용에는 영향을 끼치지 않음.
+table-cell/td/th에 vertical-align을 사용할 경우 그 하위요소에(내용이!) 적용이된다.
+
+IR기법
+-대체텍스트 제공, 이미지가 있고 시각장애인을 위해 텍스트로 설명 써줄때.
+-특히 조직도/그래프에서 쓸 때.
+div안에 조직도 이미지를 백그라운드로 넣고, ul-li로 대표-사장-이사-ul-li:개발팀 ul-li 디자인팀 이런식으로 텍스트를 넣어줌.
+longdesk기법- 이미지를 넣고 설명을 url로 넣어서 설명을 url링크로 넘겨서 함.
+
+이미지스프라이트기법
+-네이버에서 쓰는 이미지기법, 한장에 이미지 잔뜩 넣어놓고 쓸때.
+
+em과 rem
+유지보수를 쉽게 하기 위해서..body에 1rem을 넣어두면 폰트사이즈 유지보수할때 편하다
+모바일과 반응형과는 상관이 전혀 없다
+em은 '부모'태그에 종속을 받는다
+rem은 최상위 태그 폰트사이즈의 종속을 받는다.
+
+css순서
+display->속성부여 먼저
+float:left->그 다음..
+position
+->위 세가지는 함께 쓸 일이 없다.
+
+top;left;
+width;height;
+line-height;
+padding;
+margin;
+border;
+->여기까지는 수치값/계산을 위해
+
+background;
+color;font-size;
+->꾸미기
+
+
+
+z-index를 주려면 position이 있어야한다.
+
+
+
+몇가지 tip
+
+
+-->
+
+<div class="d1">
+    
+<div class="d2"></div>
+    
+</div>
+<br><br><br><br><br>
+<div class="d1">
+    
+<div class="d2"></div>
+    
+</div>
+
+</body>
+</html>

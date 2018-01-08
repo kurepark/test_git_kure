@@ -224,9 +224,9 @@
             console.log('함수진행중')
             if (dir === 'up' || dir === 'down') {
 //            if (scrollState === 'true') {
+                console.log('멈춴')
                 event.preventDefault();
                 return false;
-                console.log('멈춴')
             } else {
                 nextPos = (startX - moveX);
                 if (-nextPos < -point) { //기준선 넘을시.

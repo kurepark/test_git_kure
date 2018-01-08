@@ -190,21 +190,17 @@
             console.log(startY - moveY)
             console.log(dir);
 
-//             if (dir === 'mid') { //중간값일때만 좌우로 이동.
-//                 nextPos = (startX - moveX);
-//                 if (index === 0) {
-//                     slide.css('left', -nextPos);
-//                 } else {
-//                     slide.css('left', -nextPos + slideLeft);
-//                 }
-//             } else { // 위아래움직임일때
-//                 return false;
-//             }
-    if (dir === 'mid') { //중간값일때만 좌우로 이동.
-               slideFunc(event);
+            if (dir === 'mid') { //중간값일때만 좌우로 이동.
+                nextPos = (startX - moveX);
+                if (index === 0) {
+                    slide.css('left', -nextPos);
+                } else {
+                    slide.css('left', -nextPos + slideLeft);
+                }
             } else { // 위아래움직임일때
-                return false;
+                    slide.css('left',-(slideWid * index));
             }
+
         })
         $("#wrap").bind('touchend', function(event) {
             endX = event.clientX || event.originalEvent.changedTouches[0].clientX;

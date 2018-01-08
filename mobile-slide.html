@@ -127,11 +127,11 @@
         터치 스피드? 터치속도가 빠르면 함수 한번더....
         
         */
-    var scrollState;
- $(document).scroll(function() {
-              scrollState= true;
-        console.log(scrollState);
-        })
+//     var scrollState;
+//  $(document).scroll(function() {
+//               scrollState= true;
+//         console.log(scrollState);
+//         })
     $(document).ready(function() {
        
         var point = $(window).width() / 5;
@@ -222,8 +222,8 @@
 
         function slideFunc(event) {
             console.log('함수진행중')
-//            if (dir === 'up' || dir === 'down') {
-            if (scrollState === 'true') {
+            if (dir === 'up' || dir === 'down') {
+//            if (scrollState === 'true') {
                 event.preventDefault();
                 return false;
                 console.log('멈춴')

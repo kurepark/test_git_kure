@@ -177,11 +177,13 @@
             moveY = event.clientY || event.originalEvent.touches[0].clientY;
             $(".pos2").text('이동 x = ' + moveX.toFixed(0) + ' 이동y = ' + moveY.toFixed(0));
 
-//             if (startY - moveY < -passPoint) {
-//                 dir = 'down'
-//             } else if (startY - moveY > passPoint - 10) {
-//                 dir = 'up'
-//             }
+             if (-passPoint < startY - moveY < passPoint - 10) {
+                dir = 'mid'
+            }else if (startY - moveY < -passPoint) {
+                dir = 'down'
+            } else if (startY - moveY > passPoint - 10) {
+                dir = 'up'
+            }
 
 
 
@@ -213,14 +215,14 @@
 
 
             
-            if (dir === 'mid') { //중간값일때만 좌우로 이동.
-                nextPos = (startX - moveX);
-                if (index === 0) {
-                    slide.css('left', -nextPos);
-                } else {
-                    slide.css('left', -nextPos + slideLeft);
-                }
-            }
+//             if (dir === 'mid') { //중간값일때만 좌우로 이동.
+//                 nextPos = (startX - moveX);
+//                 if (index === 0) {
+//                     slide.css('left', -nextPos);
+//                 } else {
+//                     slide.css('left', -nextPos + slideLeft);
+//                 }
+//             }
             
             movePos = 0;
             // 				if (startY - moveY < -passPoint) {

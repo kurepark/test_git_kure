@@ -207,8 +207,12 @@
             endY = event.clientY || event.originalEvent.changedTouches[0].clientY;
             $(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
 
-            if (-passPoint < startY - moveY < passPoint - 10) {
+             if (-passPoint < startY - moveY < passPoint - 10) {
                 dir = 'mid'
+            }else if (startY - moveY < -passPoint) {
+                dir = 'down'
+            } else if (startY - moveY > passPoint - 10) {
+                dir = 'up'
             }
 
 

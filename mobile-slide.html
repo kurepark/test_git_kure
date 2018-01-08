@@ -236,9 +236,12 @@
             // 			else if (-passPoint < startY - moveY < passPoint - 10) {
             // 				dir = 'mid'
             // 			}
-            slideFunc(event);
+           // slideFunc(event);
         })
-
+        
+$("#wrap").bind('touchmove touchend', function(event){
+     slideFunc(event);
+}
 
         function slideFunc(event) {
             console.log('함수진행중')

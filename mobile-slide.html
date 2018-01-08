@@ -207,36 +207,26 @@
             endY = event.clientY || event.originalEvent.changedTouches[0].clientY;
             $(".pos3").text('끝 x = ' + endX.toFixed(0) + ' 끝 y = ' + endY.toFixed(0));
 
-             if (-passPoint < startY - moveY < passPoint - 10) {
-                dir = 'mid'
-            }else if (startY - moveY < -passPoint) {
-                dir = 'down'
-            } else if (startY - moveY > passPoint - 10) {
-                dir = 'up'
-            }
-
+                 				if (startY - moveY < -passPoint) {
+            				dir = 'down'
+            			}
+            			else if (startY - moveY > passPoint - 10) {
+            				dir = 'up'
+            			}
+            			else if (-passPoint < startY - moveY < passPoint - 10) {
+            				dir = 'mid'
+            			}
 
             
-//             if (dir === 'mid') { //중간값일때만 좌우로 이동.
-//                 nextPos = (startX - moveX);
-//                 if (index === 0) {
-//                     slide.css('left', -nextPos);
-//                 } else {
-//                     slide.css('left', -nextPos + slideLeft);
-//                 }
-//             }
+            if (dir === 'mid') { //중간값일때만 좌우로 이동.
+                          slideFunc(event);
+            } else {
+                return false;
+            }
             
             movePos = 0;
-            // 				if (startY - moveY < -passPoint) {
-            // 				dir = 'down'
-            // 			}
-            // 			else if (startY - moveY > passPoint - 10) {
-            // 				dir = 'up'
-            // 			}
-            // 			else if (-passPoint < startY - moveY < passPoint - 10) {
-            // 				dir = 'mid'
-            // 			}
-            slideFunc(event);
+     
+
         })
   
 

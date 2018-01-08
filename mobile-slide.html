@@ -243,7 +243,7 @@
                 console.log('멈춴')
                 event.preventDefault();
                 return false;
-            } else {
+            } else if(dir === 'mid') {
                 nextPos = (startX - moveX);
                 if (-nextPos < -point) { //기준선 넘을시.
                     if (index > 3) { //마지막페이지 기준선 넘을때 페이지 안넘기도록
